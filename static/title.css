@@ -1,0 +1,65 @@
+.poster {
+  border-radius: 40px;
+  margin-left: 120px;
+  margin-bottom: 5%;
+  height: 400px;
+  width: 250px;
+  box-shadow: 0px 1px 15px 4px rgb(251, 5, 5);
+}
+
+.text-center {
+  text-align: center;
+}
+
+#details {
+  margin-top: 0px;
+  background-color: #000000;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0px 1px 15px 4px rgb(251, 5, 5);
+}
+
+#details h6 {
+  font-size: 20px;
+  margin: 10px 0;
+  color: rgb(0, 72, 255);
+}
+
+#details #title {
+  font-size: 24px;
+  color: #4000ff;
+}
+
+#details #overview {
+  line-height: 1.5;
+  color: rgb(255, 162, 0);
+  font-size: 20px;
+}
+
+#details #vote_average,
+#details #genres,
+#details #date,
+#details #runtime,
+#details #status {
+  color: rgb(255, 162, 0);
+  font-size: 20px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  #details #title {
+    font-size: 20px;
+  }
+
+  #details #overview {
+    font-size: 14px;
+  }
+
+  #details #vote_average,
+  #details #genres,
+  #details #date,
+  #details #runtime,
+  #details #status {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,151 @@
+<!--On clicking recommend this will happen -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Recommender system</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&amp;display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='recommend.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='title.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='cast_model.css') }}">
+
+</head>
+
+<!--For title name -->
+
+<body id="content">
+  <div class="results">
+    <h2 id="name">{{title}}</h2>
+  </div>
+
+
+  <div id="mycontent">
+    <div id="mcontent">
+      <div class="poster-lg">
+        <img class="poster" src="{{poster}}" alt="Image Loading">
+      </div>
+      <div class="poster-sm text-center">
+        <img class="poster" src="{{poster}}" alt="Image Loading">
+      </div>
+      <div class="container">
+        <div id="details">
+          <h6 id="title">{{title}}</h6>
+          <h6 id="overview">Overview: <br>{{overview}}</h6>
+          <h6 id="vote_average">Rating: {{vote_average}}/10</h6>
+          <h6 id="genres">Genre: {{genres}}</h6>
+          <h6 id="date">Release Date: {{release_date}}</h6>
+          <h6 id="runtime">Runtime: {{runtime}}</h6>
+          <h6 id="status">Status: {{status}}</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+
+
+  {% if movie_cards|length > 1 %}
+  <div class="movie">
+    <h3>Recommended movies for you</h3>
+  </div>
+
+  <div class="movie-content">
+    {% for poster, title in movie_cards.items() if not movie_cards.hidden %}
+    <div class="card" title="{{title}}" onClick="recommendcard(this)">
+
+      <div class="imghvr">
+        <img class="card-img-top" src={{poster}} alt="{{title}} - poster">
+
+        <figcaption class="fig">
+          <button class="card-btn btn btn-danger" type="button"> Click Me </button>
+        </figcaption>
+
+      </div>
+
+      <div class="card-body">
+        <h5 class="card-title">{{title|capitalize}}</h5>
+      </div>
+
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+  <br>
+
+
+  {% for name, details in cast_details.items() if not cast_details.hidden %}
+  <div class="modal fade" id="{{details[0]}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel3">{{name}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <img class="profile-pic" src="{{details[1]}}" alt="{{name}} - profile" />
+          <div class="details">
+            <p><strong>Born On:</strong> {{details[2]}}</p>
+            <p><strong>Place of Birth:</strong> {{details[3]}}</p>
+            <p><strong>Biography:</strong></p>
+            <p>{{details[4]}}</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+  {% if casts|length > 1 %}
+  <div class="movie">
+    <h3>Top Cast</h3>
+  </div>
+
+  <div class="movie-content">
+    {% for name, details in casts.items() if not casts.hidden %}
+    <div class="castcard card" title="Click to know more about {{name}}" data-toggle="modal"
+      data-target="#{{details[0]}}">
+      <div class="imghvr">
+        <img class="card-img-top cast-img" id="{{details[0]}}" alt="{{name}} - profile" src="{{details[2]}}">
+        <figcaption class="fig">
+          <button type="button" class="card-btn btn btn-danger"> Know More </button>
+        </figcaption>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{name|title}}</h5>
+        <h5 class="card-title">
+          <span class="title-cast">Character: {{details[1]|title}}</span>
+        </h5>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type="text/javascript" src="{{url_for('static', filename='recommend.js')}}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

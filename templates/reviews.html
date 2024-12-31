@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='reviews.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='reviewsnav.css') }}" />
+    <title>Movie Reviews</title>
+</head>
+
+<body>
+    <script src="{{ url_for('static', filename='reviews.js') }}"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <nav class="navbar">
+        <ul class="navbar-list">
+            <li><a href="/" class="navbar-link">Home</a></li>
+            <li><a href="/home" class="navbar-link">Recommend</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>Movie Reviews</h1>
+        <form method="POST" action="/reviews">
+            <label for="movie_title">Enter Movie Title:</label>
+            <input type="text" name="movie_title" id="autoComplete" required />
+            <button type="submit">Get Reviews</button>
+        </form>
+        {% if reviews %}
+        <div class="movie-details">
+            <h2>{{ movie.data['title'] }}</h2>
+        </div>
+        <table class="reviews-table">
+            <thead>
+                <tr>
+                    <th>Reviews</th>
+                    <th>Sentiment</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for review, sentiment in reviews %}
+                <tr>
+                    <td>
+                        <div class="review-content{% if review|length > 50 %} expandable{% endif %}">
+                            <p class="review-text">{{ review }}</p>
+                            {% if review|length > 50 %}
+                            <div class="expand-button">Read more</div>
+                            {% endif %}
+                        </div>
+                    </td>
+                    <td>{{ sentiment }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+
+
+
+</body>
+
+</html>

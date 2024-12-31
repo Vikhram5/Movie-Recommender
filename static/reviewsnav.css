@@ -1,0 +1,89 @@
+/* Navbar */
+.navbar {
+  width: 100%;
+  padding: 10px 0;
+  /* Adjusted padding */
+  background-color: black;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  height: 50px;
+  /* Decreased height */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  justify-content: flex-end;
+  /* Align items to the right end */
+}
+
+.navbar ul li {
+  position: relative;
+  margin: 0 20px;
+}
+
+.navbar ul li a {
+  text-decoration: none;
+  color: #007bff;
+  /* Blue color for items */
+  text-transform: uppercase;
+  font-size: 16px;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.navbar ul li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0;
+  height: 2px;
+  background-color: #007bff;
+  /* Blue color for animation */
+  transition: width 0.3s ease;
+}
+
+.navbar ul li a:hover::after {
+  width: 100%;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 10px 0;
+    height: auto;
+  }
+
+  .navbar ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    top: 50px;
+    right: 0;
+    background-color: black;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: none;
+  }
+
+  .navbar ul.active {
+    display: flex;
+  }
+
+  .navbar ul li {
+    margin: 10px 20px;
+  }
+
+  .navbar ul li a {
+    font-size: 16px;
+  }
+}
